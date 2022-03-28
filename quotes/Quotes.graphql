@@ -1,0 +1,12 @@
+query Quotes {
+  
+  quotes {
+    
+    id
+    quote
+    author
+    
+  }
+  
+}
+
