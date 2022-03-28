@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var quoteCount = 0
     var progressCount: Float = 0.0
     var completedPercentageCount = 0
+    var finished = false
     
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var citation: UILabel!
@@ -31,10 +32,24 @@ class ViewController: UIViewController {
     
     @IBAction func didTapNextCitation(_ sender: Any) {
         
+        guard !finished else { return }
         
-        // guard completedPercentageCount < 100 else { return }
-        
-    
+        if finished {
+            
+            quoteCount = 0
+            progressCount = 0.0
+            completedPercentageCount = 0
+            
+            DispatchQueue.main.async { [self] in
+                
+                author.text = quotes[quoteCount].author
+                citation.text = quotes[quoteCount].quote
+                completedPercentage.text = String(completedPercentageCount)+"%"
+                
+            }
+            
+        }
+
         completedPercentageCount += 10
         
         DispatchQueue.main.async { [self] in
@@ -103,6 +118,10 @@ class ViewController: UIViewController {
     func handleFinished() {
         
         nextCitationButton.setTitle("                  FINIR                 ", for: .normal)
+        
+        finished = true
+        
+        openSimpleAlert(title: "C'est fini!", message: "Game Over!")
         
     }
     
