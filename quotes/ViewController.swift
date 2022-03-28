@@ -40,25 +40,13 @@ class ViewController: UIViewController {
             progressCount = 0.0
             completedPercentageCount = 0
             
-            DispatchQueue.main.async { [self] in
-                
-                author.text = quotes[quoteCount].author
-                citation.text = quotes[quoteCount].quote
-                completedPercentage.text = String(completedPercentageCount)+"%"
-                
-            }
+            updateUI()
             
         }
 
         completedPercentageCount += 10
         
-        DispatchQueue.main.async { [self] in
-            
-            author.text = quotes[quoteCount].author
-            citation.text = quotes[quoteCount].quote
-            completedPercentage.text = String(completedPercentageCount)+"%"
-            
-        }
+        updateUI()
         
         quoteCount += 1
         progressCount += 0.1
@@ -94,6 +82,18 @@ class ViewController: UIViewController {
             
         }
          
+    }
+    
+    func updateUI() {
+        
+        DispatchQueue.main.async { [self] in
+            
+            author.text = quotes[quoteCount].author
+            citation.text = quotes[quoteCount].quote
+            completedPercentage.text = String(completedPercentageCount)+"%"
+            
+        }
+        
     }
             
     
